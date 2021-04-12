@@ -9,15 +9,22 @@ scp install-ovs $DELTA_CP:~
 ssh $DELTA_CP "
     sudo apt-get update
     sudo apt-get upgrade -y
-    sudo apt-get install -y python-dev python-pip wget unzip git
-
+#    sudo apt-get install -y python-dev python-pip wget unzip git
+    sudo apt-get install -y wget curl unzip git python2
+    curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py
+    sudo python2 get-pip.py
+    rm get-pip.py
+    alias python=python2
+    alias pip=pip2
+    
     echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
     echo debconf shared/accepted-oracle-license-v1-1 seen true | sudo debconf-set-selections
 
     sudo apt-get install software-properties-common -y
     sudo add-apt-repository ppa:webupd8team/java -y
     sudo apt-get update
-    sudo apt-get install oracle-java8-installer oracle-java8-set-default -y
+#    sudo apt-get install oracle-java8-installer oracle-java8-set-default -y
+    sudo apt-get install openjdk-8-jdk -y
     sudo apt-get install -y libpcap-dev
 
     git clone https://github.com/mininet/mininet
